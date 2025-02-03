@@ -23,7 +23,7 @@
 #define MIN_ERROR      0.00002  // Seuil d'arrêt sur l'erreur (delta)
 
 // Nombre de points par spirale
-#define NB_POINTS_SPIRALE  1500
+#define NB_POINTS_SPIRALE  500
 
 // Ici, on fixe un petit réseau pour l'exemple : 2 entrées, 1 couche cachée de 6 neurones, 2 neurones en sortie
 static int layerSizes[] = {2, 8,12,8, 2}; 
@@ -294,7 +294,7 @@ void backpropagation(NeuralNetwork *net, double *target) {
 void generateSpirals(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoints) {
     double step = 4.0 * M_PI / (double)(nbPoints);
     for(int i=0; i<nbPoints; i++){
-        double t = i * step;
+        double t =  i * step  ;
         // Spirale bleue: (t cos t, t sin t)
         spiralBlue[i].x = t * cos(t);
         spiralBlue[i].y = t * sin(t);
