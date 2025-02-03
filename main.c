@@ -18,16 +18,16 @@
 #define WINDOW_HEIGHT 1000
 
 // Paramètres de l'apprentissage
-#define ETA            0.01   // Taux d'apprentissage (epsilon)
-#define MAX_EPOCHS     1000000  // Nombre max d'itérations
-#define MIN_ERROR      0.301  // Seuil d'arrêt sur l'erreur (delta)
+#define ETA             0.0001 // Taux d'apprentissage (epsilon)
+#define MAX_EPOCHS     5000    // Nombre max d'itérations
+#define MIN_ERROR      0.00002  // Seuil d'arrêt sur l'erreur (delta)
 
 // Nombre de points par spirale
-#define NB_POINTS_SPIRALE  100
+#define NB_POINTS_SPIRALE  1500
 
 // Ici, on fixe un petit réseau pour l'exemple : 2 entrées, 1 couche cachée de 6 neurones, 2 neurones en sortie
-static int layerSizes[] = {2, 6, 2}; 
-static int nbLayers = 3;  // 3 couches = entrée + 1 cachée + sortie
+static int layerSizes[] = {2, 8,12,8, 2}; 
+static int nbLayers = 5;  // 3 couches = entrée + 1 cachée + sortie
 
 // -------------------------------------
 // Structures de données
@@ -332,6 +332,8 @@ void trainNetwork(NeuralNetwork *net, SamplePoint *dataset, int nbSamples) {
             }
         }
 
+
+
         if(maxDelta < MIN_ERROR){
             printf("Convergence atteinte a l'epoque %d, maxDelta=%.6f\n", epoch, maxDelta);
             break;
@@ -452,15 +454,21 @@ int main(int argc, char **argv) {
                 else if(e.key.keysym.sym == SDLK_t){
                     printf("Lancement de l'apprentissage...\n");
                     // On combine les deux spirales dans un seul dataset
-                    SamplePoint dataset[2*NB_POINTS_SPIRALE];
-                    for(int i=0; i<NB_POINTS_SPIRALE; i++){
-                        dataset[i] = spiralBlue[i];
+                    
+                        SamplePoint dataset[2*NB_POINTS_SPIRALE];
+                        for(int i=0; i<NB_POINTS_SPIRALE; i++){
+                            dataset[i] = spiralBlue[i];
+                        }
+                        for(int i=0; i<NB_POINTS_SPIRALE; i++){
+                            dataset[NB_POINTS_SPIRALE + i] = spiralRed[i];
+                        }
+                        for(int i =0; i< 3; i++){
+                        printf("entrainement n° %d\n",i+1);
+                        trainNetwork(net, dataset, 2*NB_POINTS_SPIRALE);
+                        
+                        
+                        needRedraw = 1;
                     }
-                    for(int i=0; i<NB_POINTS_SPIRALE; i++){
-                        dataset[NB_POINTS_SPIRALE + i] = spiralRed[i];
-                    }
-                    trainNetwork(net, dataset, 2*NB_POINTS_SPIRALE);
-                    needRedraw = 1;
                 }
                 else if(e.key.keysym.sym == SDLK_s){
                     saveNetwork(net, "reseau_sauvegarde.txt");
