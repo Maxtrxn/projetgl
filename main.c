@@ -466,8 +466,19 @@ int main(int argc, char **argv) {
                         printf("entrainement n° %d\n",i+1);
                         trainNetwork(net, dataset, 2*NB_POINTS_SPIRALE);
                         
-                        
                         needRedraw = 1;
+                        
+                         if(needRedraw){
+                            // 1) On dessine la carte de classification
+                            drawClassificationMap(renderer, net);
+                            // 2) On dessine les points (spirales)
+                            SDL_Color blue = {0, 0, 0xFF, 0xFF};
+                            SDL_Color red  = {0xFF, 0, 0, 0xFF};
+                            drawSamples(renderer, spiralBlue, NB_POINTS_SPIRALE, blue);
+                            drawSamples(renderer, spiralRed,  NB_POINTS_SPIRALE, red);
+                            SDL_RenderPresent(renderer);
+                            needRedraw = 0;
+                        }
                     }
                 }
                 else if(e.key.keysym.sym == SDLK_s){
