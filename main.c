@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include "ubench.h"
 
 #ifndef M_PI
     #define M_PI 3.14159265358979323846
@@ -405,6 +406,9 @@ void drawSamples(SDL_Renderer *renderer, SamplePoint *data, int n, SDL_Color col
 int main(int argc, char **argv) {
     (void)argc; // on ignore les paramètres pour éviter le warning
     (void)argv;
+    
+    Benchmark bench;  // Déclare une variable pour stocker les informations de benchmark
+    Benchmark bench2;
 
     srand((unsigned int)time(NULL));
 
@@ -444,25 +448,30 @@ int main(int argc, char **argv) {
     while(running) {
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
-            if(e.type == SDL_QUIT){
+            if(e.type == SDL_QUIT){ // si on ferme l'application, on sort de la boucle 
                 running = 0;
             }
             else if(e.type == SDL_KEYDOWN){
-                if(e.key.keysym.sym == SDLK_ESCAPE || e.key.keysym.sym == SDLK_q){
+                if(e.key.keysym.sym == SDLK_ESCAPE || e.key.keysym.sym == SDLK_q){ // si on appuie sur echap ou q on quitte l'application
                     running = 0;
                 }
-                else if(e.key.keysym.sym == SDLK_t){
+                else if(e.key.keysym.sym == SDLK_t){ // si on appuie sur t
+                    startBenchmark(&bench);  // Démarre le chronomètre (pour test de temps)
+                
                     printf("Lancement de l'apprentissage...\n");
                     // On combine les deux spirales dans un seul dataset
                     
-                        SamplePoint dataset[2*NB_POINTS_SPIRALE];
-                        for(int i=0; i<NB_POINTS_SPIRALE; i++){
-                            dataset[i] = spiralBlue[i];
-                        }
-                        for(int i=0; i<NB_POINTS_SPIRALE; i++){
-                            dataset[NB_POINTS_SPIRALE + i] = spiralRed[i];
-                        }
-                        for(int i =0; i< 3; i++){
+                    SamplePoint dataset[2*NB_POINTS_SPIRALE];
+                    for(int i=0; i<NB_POINTS_SPIRALE; i++){
+                        dataset[i] = spiralBlue[i];
+                    }
+                    for(int i=0; i<NB_POINTS_SPIRALE; i++){
+                        dataset[NB_POINTS_SPIRALE + i] = spiralRed[i];
+                    }
+
+                    //on commence les entrainements
+                    for(int i =0; i< 3; i++){
+                        startBenchmark(&bench2);  // Démarre le chronomètre (pour test de temps)
                         printf("entrainement n° %d\n",i+1);
                         trainNetwork(net, dataset, 2*NB_POINTS_SPIRALE);
                         
@@ -479,7 +488,13 @@ int main(int argc, char **argv) {
                             SDL_RenderPresent(renderer);
                             needRedraw = 0;
                         }
+                        printf("Fin de l'entraînement\n");
+                        // Arrêter le benchmark et afficher les résultats
+                        stopBenchmark(&bench2, "Test de chaque entrainement");
+                        
                     }
+                    stopBenchmark(&bench, "Test de l'appentissage");
+
                 }
                 else if(e.key.keysym.sym == SDLK_s){
                     saveNetwork(net, "reseau_sauvegarde.txt");
@@ -509,7 +524,7 @@ int main(int argc, char **argv) {
 
         SDL_Delay(10);
     }
-
+    
     // Nettoyage
     freeNetwork(net);
     SDL_DestroyRenderer(renderer);
