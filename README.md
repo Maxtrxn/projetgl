@@ -1,2 +1,2 @@
 # projetgl
-le projet gl
+le projet gl version encapsulée
