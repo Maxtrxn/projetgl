@@ -1,4 +1,4 @@
-#include "neuralNetwork.h"
+#include "network.h"
 #include "types.h"
 #include "utils.h"
 #include "propagation.h"
