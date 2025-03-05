@@ -1,13 +1,15 @@
 #ifndef PROPAGATION_H
 #define PROPAGATION_H
 
-#include "neuralNetwork.h"
+#include "network.h"
 #include "types.h"
 #include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
 // Passes avant et arrière
 void forwardPass(NeuralNetwork *net, double *input);
