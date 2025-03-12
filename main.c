@@ -18,16 +18,16 @@
 #define WINDOW_HEIGHT 1000
 
 // Paramètres de l'apprentissage
-#define ETA             0.0001 // Taux d'apprentissage (epsilon)
+#define ETA             0.00001 // Taux d'apprentissage (epsilon)
 #define MAX_EPOCHS     5000    // Nombre max d'itérations
-#define MIN_ERROR      0.00002  // Seuil d'arrêt sur l'erreur (delta)
+#define MIN_ERROR      0.0001  // Seuil d'arrêt sur l'erreur (delta)
 
 // Nombre de points par spirale
 #define NB_POINTS_SPIRALE  500
 
 // Ici, on fixe un petit réseau pour l'exemple : 2 entrées, 1 couche cachée de 6 neurones, 2 neurones en sortie
-static int layerSizes[] = {2, 8,12,8, 2}; 
-static int nbLayers = 5;  // 3 couches = entrée + 1 cachée + sortie
+static int layerSizes[] = {2,15,15,2}; 
+static int nbLayers = 4;  
 
 // -------------------------------------
 // Structures de données
@@ -42,9 +42,6 @@ typedef struct {
     // weights[i][j][k] = poids reliant le neurone k de la couche (i-1)
     //                    au neurone j de la couche i
     double ***weights; 
-    
-    // biases[i][j] = biais du neurone j de la couche i
-    double **biases;
 
     // outputs[i][j] = sortie du neurone j de la couche i
     double **outputs;
@@ -79,6 +76,8 @@ static double randSymetric() {
     return 2.0 * ((double)rand()/(double)RAND_MAX) - 1.0;
 }
 
+
+
 // -------------------------------------
 // Création / libération du réseau
 // -------------------------------------
@@ -103,9 +102,8 @@ NeuralNetwork* createNetwork(int nbLayers, int *layerSizes) {
         net->delta[i] = (double*)calloc(layerSizes[i], sizeof(double));
     }
 
-    // Allocation des poids et biais
+    // Allocation des poids 
     net->weights = (double***)malloc(nbLayers * sizeof(double**));
-    net->biases  = (double**)malloc(nbLayers * sizeof(double*));
     // La couche d'entrée n'a pas de poids (pas de neurones entrants)
     for(int i=1; i<nbLayers; i++){
         net->weights[i] = (double**)malloc(layerSizes[i] * sizeof(double*));
@@ -116,15 +114,10 @@ NeuralNetwork* createNetwork(int nbLayers, int *layerSizes) {
                 net->weights[i][j][k] = randSymetric() * 0.5; 
             }
         }
-        net->biases[i] = (double*)malloc(layerSizes[i] * sizeof(double));
-        for(int j=0; j<layerSizes[i]; j++){
-            net->biases[i][j] = randSymetric() * 0.5;
-        }
+        
     }
-    // La couche 0 n'a pas de poids/biais
+    // La couche 0 n'a pas de poids
     net->weights[0] = NULL;
-    net->biases[0]  = NULL;
-
     return net;
 }
 
@@ -137,10 +130,10 @@ void freeNetwork(NeuralNetwork *net) {
             free(net->weights[i][j]);
         }
         free(net->weights[i]);
-        free(net->biases[i]);
+        
     }
     free(net->weights);
-    free(net->biases);
+    
 
     // Libère outputs et delta
     for(int i=0; i<net->nbLayers; i++){
@@ -171,7 +164,7 @@ int saveNetwork(NeuralNetwork *net, const char *filename) {
         fprintf(f, "%d ", net->layerSizes[i]);
     }
     fprintf(f, "\n");
-    // On écrit tous les poids / biais
+    // On écrit tous les poids 
     for(int i=1; i<net->nbLayers; i++){
         for(int j=0; j<net->layerSizes[i]; j++){
             for(int k=0; k<net->layerSizes[i-1]; k++){
@@ -179,9 +172,7 @@ int saveNetwork(NeuralNetwork *net, const char *filename) {
             }
             fprintf(f, "\n");
         }
-        for(int j=0; j<net->layerSizes[i]; j++){
-            fprintf(f, "%.15f ", net->biases[i][j]);
-        }
+        
         fprintf(f, "\n");
     }
 
@@ -209,15 +200,12 @@ NeuralNetwork* loadNetwork(const char *filename) {
     NeuralNetwork *net = createNetwork(nbL, ls);
     free(ls);
 
-    // Relit tous les poids/biais
+    // Relit tous les poids
     for(int i=1; i<net->nbLayers; i++){
         for(int j=0; j<net->layerSizes[i]; j++){
             for(int k=0; k<net->layerSizes[i-1]; k++){
                 (void)fscanf(f, "%lf", &net->weights[i][j][k]);
             }
-        }
-        for(int j=0; j<net->layerSizes[i]; j++){
-            (void)fscanf(f, "%lf", &net->biases[i][j]);
         }
     }
     fclose(f);
@@ -242,8 +230,6 @@ void forwardPass(NeuralNetwork *net, double *input) {
             for(int k=0; k<net->layerSizes[i-1]; k++){
                 sum += net->outputs[i-1][k] * net->weights[i][j][k];
             }
-            // Ajout du biais
-            sum += net->biases[i][j];
             // Activation
             net->outputs[i][j] = my_tanh(sum);
         }
@@ -276,14 +262,13 @@ void backpropagation(NeuralNetwork *net, double *target) {
         }
     }
 
-    // 3. Mise à jour des poids / biais
+    // 3. Mise à jour des poids 
     for(int i=1; i<net->nbLayers; i++){
         for(int j=0; j<net->layerSizes[i]; j++){
             for(int k=0; k<net->layerSizes[i-1]; k++){
                 double grad = net->delta[i][j] * net->outputs[i-1][k];
                 net->weights[i][j][k] += ETA * grad;
             }
-            net->biases[i][j] += ETA * net->delta[i][j];
         }
     }
 }
@@ -371,6 +356,7 @@ void drawClassificationMap(SDL_Renderer *renderer, NeuralNetwork *net) {
             double x = ( (double)px - WINDOW_WIDTH/2.0 ) / 40.0;
             double y = ( (double)py - WINDOW_HEIGHT/2.0 ) / 40.0;
             double input[2] = {x, y};
+           
             forwardPass(net, input);
 
             double pBleu  = net->outputs[net->nbLayers-1][0];
