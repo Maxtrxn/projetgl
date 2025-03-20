@@ -1,11 +1,19 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -O2 `sdl2-config --cflags`
-LIBS = `sdl2-config --libs` -lm
+CFLAGS = -o3 -march=native -Wall -Wextra -g 
+LIBS = -lSDL2 -lm
 
-all: main
+SRC = main.c types.c affichage.c neurone.c utils.c
+OBJ = $(SRC:.c=.o)
 
-main: main.c
-	$(CC) $(CFLAGS) main.c -o main $(LIBS)
+EXEC = main
+
+all: $(EXEC)
+
+$(EXEC): $(OBJ)
+	$(CC) $(OBJ) -o $@ $(LIBS)
+
+%.o: %.c
+	$(CC)  $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f main
+	rm -f $(OBJ) $(EXEC)
