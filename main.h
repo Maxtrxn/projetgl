@@ -12,9 +12,9 @@
 #include "affichage.h"
 
 
-// Parametres du réseau
-static int layerSizes[] = {2,15,15,2}; 
-static int nbLayers = 4;  
+// Parametres du réseau1
+static int layerSizes[] = {2, 48, 8, 24, 8, 32, 2};
+static int nbLayers = sizeof(layerSizes) / sizeof(int);  
 
 
 int main(int argc, char* argv[]);

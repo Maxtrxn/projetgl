@@ -158,18 +158,19 @@ void forwardPass(NeuralNetwork *net, double *input) {
         net->outputs[0][i] = input[i];
     }
 
-    // Pour chaque couche cachée et la couche de sortie
-    for(int i=1; i<net->nbLayers; i++){
-        for(int j=0; j<net->layerSizes[i]; j++){
-            double sum = 0.0;
-            // Somme pondérée des sorties de la couche précédente
-            for(int k=0; k<net->layerSizes[i-1]; k++){
-                sum += net->outputs[i-1][k] * net->weights[i][j][k];
-            }
-            // Activation
-            net->outputs[i][j] = my_tanh(sum);
+for (int i=1; i<net->nbLayers; i++) {
+    double *prev_outputs = net->outputs[i-1];  // Variable locale pour éviter d’accéder au pointeur
+    double *cur_outputs = net->outputs[i];
+    for (int j=0; j<net->layerSizes[i]; j++) {
+        double sum = 0.0;
+        double *weights_j = net->weights[i][j];  // Pointer directement sur les poids
+        for (int k=0; k<net->layerSizes[i-1]; k++) {
+            sum += prev_outputs[k] * weights_j[k];
         }
+        cur_outputs[j] = my_tanh(sum);
     }
+}
+
 }
 
 // -------------------------------------
@@ -260,7 +261,7 @@ void trainNetwork(NeuralNetwork *net, SamplePoint *dataset, int nbSamples) {
             break;
         }
 
-        if(epoch % 1000 == 0){
+        if(epoch % 500 == 0){
             printf("Epoch=%d, maxDelta=%.6f\n", epoch, maxDelta);
         }
     }

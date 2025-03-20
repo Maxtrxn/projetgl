@@ -6,43 +6,58 @@
 
 // Calcul de la couleur en fonction de la sortie [pBleu, pRouge]
 void getColorFromOutput(double pBleu, double pRouge, Uint8 *r, Uint8 *g, Uint8 *b) {
-    double sum = pBleu + pRouge;
-    if(sum < 1e-9) sum = 1e-9;
-    double pb = pBleu / sum;
-    double pr = pRouge / sum;
-
-    // Couleur = pb * bleu + pr * rouge
-    double db = pb * 255.0; 
-    double dr = pr * 255.0; 
-    *r = (Uint8)dr;
+    double sum = pBleu + pRouge + 1e-9;  // Évite la division par zéro
+    double pb = pBleu * (1.0 / sum);  // Évite la division répétée
+    double pr = pRouge * (1.0 / sum);
+    *r = (Uint8)(pr * 255.0);
     *g = 0;
-    *b = (Uint8)db;
+    *b = (Uint8)(pb * 255.0);
 }
 
+
 // Dessine la "carte" de classification
+// Déclarer une texture globale
+SDL_Texture *classificationTexture = NULL;
+
+void initClassificationTexture(SDL_Renderer *renderer) {
+    classificationTexture = SDL_CreateTexture(renderer,
+                                              SDL_PIXELFORMAT_RGB888, 
+                                              SDL_TEXTUREACCESS_STREAMING, 
+                                              WINDOW_WIDTH, WINDOW_HEIGHT);
+}
+
 void drawClassificationMap(SDL_Renderer *renderer, NeuralNetwork *net) {
-    for(int px=0; px<WINDOW_WIDTH; px++){
-        for(int py=0; py<WINDOW_HEIGHT; py++){
-            double x = ( (double)px - WINDOW_WIDTH/2.0 ) / 40.0;
-            double y = ( (double)py - WINDOW_HEIGHT/2.0 ) / 40.0;
+    if (!classificationTexture) {
+        initClassificationTexture(renderer); // S'assure que la texture existe
+    }
+
+    Uint32 *pixels;
+    int pitch;
+    SDL_LockTexture(classificationTexture, NULL, (void**)&pixels, &pitch);
+    pitch /= sizeof(Uint32); // Convertir pitch en nombre de pixels
+
+    for(int py=0; py<WINDOW_HEIGHT; py++){
+        for(int px=0; px<WINDOW_WIDTH; px++){
+            double x = ((double)px - WINDOW_WIDTH/2.0) / 40.0;
+            double y = ((double)py - WINDOW_HEIGHT/2.0) / 40.0;
             double input[2] = {x, y};
-           
+
             forwardPass(net, input);
-
-            double pBleu  = net->outputs[net->nbLayers-1][0];
-            double pRouge = net->outputs[net->nbLayers-1][1];
-
-            // Tanh renvoie dans [-1,1], on ramène dans [0,1]
-            pBleu  = (pBleu  + 1.0)/2.0;
-            pRouge = (pRouge + 1.0)/2.0;
+            double pBleu  = (net->outputs[net->nbLayers-1][0] + 1.0) / 2.0;
+            double pRouge = (net->outputs[net->nbLayers-1][1] + 1.0) / 2.0;
 
             Uint8 r, g, b;
             getColorFromOutput(pBleu, pRouge, &r, &g, &b);
-            SDL_SetRenderDrawColor(renderer, r, g, b, 255);
-            SDL_RenderDrawPoint(renderer, px, py);
+
+            // 🟢 Écriture directe dans la mémoire texture
+            pixels[py * pitch + px] = (r << 16) | (g << 8) | b;
         }
     }
+
+    SDL_UnlockTexture(classificationTexture); // Débloque l'accès à la texture
+    SDL_RenderCopy(renderer, classificationTexture, NULL, NULL); // Affiche d'un coup
 }
+
 
 // Dessine les points
 void drawSamples(SDL_Renderer *renderer, SamplePoint *data, int n, SDL_Color color) {

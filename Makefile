@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -o3 -march=native -Wall -Wextra -g 
+CFLAGS = -O3 -march=native -Wall -Wextra
 LIBS = -lSDL2 -lm
 
 SRC = main.c types.c affichage.c neurone.c utils.c

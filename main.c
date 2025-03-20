@@ -51,6 +51,8 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    initClassificationTexture(renderer);
+
     int running = 1;
     int needRedraw = 1;
     while(running) {
@@ -74,10 +76,15 @@ int main(int argc, char **argv) {
                         for(int i=0; i<NB_POINTS_SPIRALE; i++){
                             dataset[NB_POINTS_SPIRALE + i] = spiralRed[i];
                         }
-                        for(int i =0; i< 3; i++){
+                        double sum = 0.0;
+                        const int iterations = 2;
+                        for(int i =0; i< iterations; i++){
                         printf("entrainement n° %d\n",i+1);
-                        trainNetwork(net, dataset, 2*NB_POINTS_SPIRALE);
-                        
+                        double before = clock();
+                        trainNetwork(net, dataset, NB_POINTS_SPIRALE*2);
+                        double after = clock();
+                        printf("Apprentissage en %f secondes\n", (after - before) / CLOCKS_PER_SEC);
+                        sum += (after - before) / CLOCKS_PER_SEC;
                         needRedraw = 1;
                         
                          if(needRedraw){
@@ -92,6 +99,9 @@ int main(int argc, char **argv) {
                             needRedraw = 0;
                         }
                     }
+                    printf("Apprentissage moyen en %f secondes\n", sum/iterations);
+                    printf("Temps d'apprentissage total : %f secondes\n", sum);
+
                 }
                 else if(e.key.keysym.sym == SDLK_s){
                     saveNetwork(net, "reseau_sauvegarde.txt");
@@ -124,6 +134,7 @@ int main(int argc, char **argv) {
 
     // Nettoyage
     freeNetwork(net);
+    SDL_DestroyTexture(classificationTexture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
