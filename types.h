@@ -29,8 +29,7 @@
 // Représentation d'un réseau entièrement connecté
 typedef struct {
     int nbLayers;      // Nombre total de couches
-    int *layerSizes;   // Tableau contenant la taille de chaque couche
-                       // ex: layerSizes[0] = 2, layerSizes[1] = 6, layerSizes[2] = 2, ...
+    int *layerSizes;   // Tableau contenant la taille de chaque coucheq
 
     // weights[i][j][k] = poids reliant le neurone k de la couche (i-1)
     //                    au neurone j de la couche i

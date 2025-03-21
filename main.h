@@ -13,8 +13,8 @@
 
 
 // Parametres du réseau
-static int layerSizes[] = {2,15,15,2}; 
-static int nbLayers = 4;  
+static int layerSizes[] = {2,20,10,20,2}; 
+static int nbLayers = 5;  
 
 
 int main(int argc, char* argv[]);
