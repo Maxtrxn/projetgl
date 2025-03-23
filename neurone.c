@@ -1,10 +1,16 @@
+/**
+ * @file neurone.c
+ * @brief Fichier des fonctions nécessaires pour la création, la libération, la sauvegarde, le chargement, la propagation et la rétropropagation du réseau de neurones
+ * @version 0.1
+ * @date 2025-03-23
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #include "neurone.h"
 
-// -------------------------------------
-// Création / libération du réseau
-// -------------------------------------
 
-// Fonction tanh et sa dérivée
+// Fonction d'activation tanh et sa dérivée
 static inline double my_tanh(double x) {
     return tanh(x);
 }
@@ -18,9 +24,52 @@ static double randSymetric() {
     return 2.0 * ((double)rand()/(double)RAND_MAX) - 1.0;
 }
 
+// -------------------------------------
+// Génération des spirales (jeu de données)
+// -------------------------------------
+/**
+ * @brief Fonction qui génère les spirales bleues et rouges
+ * 
+ * @param[out] spiralBlue Les points de la spirale bleue
+ * @param[out] spiralRed Les points de la spirale rouge
+ * @param[int] nbPoints Le nombre de points total
+ * @return void
+ */
+void generateSpirals(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoints) {
+    double step = 4.0 * M_PI / (double)(nbPoints); //4.0 = WINDOW_WIDTH/NB_POINTS = DISTANCE ENTRE 2 SPIRES
+    for(int i=0; i<nbPoints; i++){
+        double t =  i * step  ;
+        // Spirale bleue: (t cos t, t sin t)
+        spiralBlue[i].x = t * cos(t);
+        spiralBlue[i].y = t * sin(t);
+        // Cible = [1, 0] => bleu
+        spiralBlue[i].target[0] = 1.0;
+        spiralBlue[i].target[1] = 0.0;
+
+        // Spirale rouge: (-t cos t, -t sin t)
+        spiralRed[i].x = -t * cos(t);
+        spiralRed[i].y = -t * sin(t);
+        // Cible = [0, 1] => rouge
+        spiralRed[i].target[0] = 0.0;
+        spiralRed[i].target[1] = 1.0;
+    }
+}
+
+// -------------------------------------
+// Création / libération du réseau
+// -------------------------------------
+/**
+ * @brief Crée le réseau de neurones et initialise les poids aléatoirement
+ * @param[in] nbLayers 
+ * @param[out] layerSizes 
+ * @return NeuralNetwork*
+ */
 NeuralNetwork* createNetwork(int nbLayers, int *layerSizes) {
+    //Allocation de la structure de données
     NeuralNetwork *net = (NeuralNetwork*)malloc(sizeof(NeuralNetwork));
+    //Initialisation du nombre de couches
     net->nbLayers   = nbLayers;
+    //Allocation de la taille des couches
     net->layerSizes = (int*)malloc(nbLayers * sizeof(int));
     for(int i=0; i<nbLayers; i++){
         net->layerSizes[i] = layerSizes[i];
@@ -45,10 +94,11 @@ NeuralNetwork* createNetwork(int nbLayers, int *layerSizes) {
         net->weights[i] = (double**)malloc(layerSizes[i] * sizeof(double*));
         for(int j=0; j<layerSizes[i]; j++){
             net->weights[i][j] = (double*)malloc(layerSizes[i-1] * sizeof(double));
-            // Initialisation aléatoire
+            //Initialisation aléatoire
             for(int k=0; k<layerSizes[i-1]; k++){
                 net->weights[i][j][k] = randSymetric() * 0.5; 
             }
+            
         }
         
     }
@@ -56,11 +106,16 @@ NeuralNetwork* createNetwork(int nbLayers, int *layerSizes) {
     net->weights[0] = NULL;
     return net;
 }
-
+/**
+ * @brief Libère 
+ * 
+ * @param[out] net réseau de neurones
+ * @return void
+ */
 void freeNetwork(NeuralNetwork *net) {
     if(!net) return;
 
-    // Libère les poids
+    // Libère les poids pour chaque couche
     for(int i=1; i<net->nbLayers; i++){
         for(int j=0; j<net->layerSizes[i]; j++){
             free(net->weights[i][j]);
@@ -71,22 +126,29 @@ void freeNetwork(NeuralNetwork *net) {
     free(net->weights);
     
 
-    // Libère outputs et delta
+    // Libère outputs et delta pour chaque couche
     for(int i=0; i<net->nbLayers; i++){
         free(net->outputs[i]);
         free(net->delta[i]);
     }
     free(net->outputs);
     free(net->delta);
-
+    //Liberation du pointeur de taille des couches
     free(net->layerSizes);
+    //Liberation de la structure de données du réseau
     free(net);
 }
 
 // -------------------------------------
 // Sauvegarde / chargement du réseau
 // -------------------------------------
-
+/**
+ * @brief Sauvegarde du réseau de neurones dans le fichier reseau_sauvegarde.txt
+ * 
+ * @param[out] net réseau de neurones
+ * @param[out] filename nom du fichier
+ * @return int retourne 1 si le fichier est sauvegardé sinon 0
+ */
 int saveNetwork(NeuralNetwork *net, const char *filename) {
     FILE *f = fopen(filename, "w");
     if(!f) {
@@ -116,7 +178,12 @@ int saveNetwork(NeuralNetwork *net, const char *filename) {
     printf("Réseau sauvegardé dans %s\n", filename);
     return 1;
 }
-
+/**
+ * @brief Charge le réseau de neurones depuis le fichier reseau_sauvegarde.txt
+ * 
+ * @param[out] filename nom du fichier
+ * @return NeuralNetwork* retourne le réseau de neurones
+ */
 NeuralNetwork* loadNetwork(const char *filename) {
     FILE *f = fopen(filename, "r");
     if(!f){
@@ -149,9 +216,17 @@ NeuralNetwork* loadNetwork(const char *filename) {
     return net;
 }
 
+
 // -------------------------------------
 // Forward pass
 // -------------------------------------
+/**
+ * @brief Passe avant du réseau de neurones
+ * 
+ * @param[out] net réseau de neurones
+ * @param[out] input tableau des coordonnées x et y
+ * @return void
+ */
 void forwardPass(NeuralNetwork *net, double *input) {
     // La couche d'entrée = input directement
     for(int i=0; i<net->layerSizes[0]; i++){
@@ -167,15 +242,24 @@ for (int i=1; i<net->nbLayers; i++) {
         for (int k=0; k<net->layerSizes[i-1]; k++) {
             sum += prev_outputs[k] * weights_j[k];
         }
+        //non-linéarité
         cur_outputs[j] = my_tanh(sum);
     }
 }
 
 }
 
+
 // -------------------------------------
 // Backpropagation
 // -------------------------------------
+/**
+ * @brief Rétropropagation du réseau de neurones
+ * 
+ * @param[out] net réseau de neurones
+ * @param[out] target tableau des points x et y ciblés
+ * @return void
+ */
 void backpropagation(NeuralNetwork *net, double *target) {
     int L = net->nbLayers - 1; // index de la dernière couche
 
@@ -211,41 +295,27 @@ void backpropagation(NeuralNetwork *net, double *target) {
 }
 
 // -------------------------------------
-// Génération des spirales (jeu de données)
-// -------------------------------------
-void generateSpirals(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoints) {
-    double step = 4.0 * M_PI / (double)(nbPoints);
-    for(int i=0; i<nbPoints; i++){
-        double t =  i * step  ;
-        // Spirale bleue: (t cos t, t sin t)
-        spiralBlue[i].x = t * cos(t);
-        spiralBlue[i].y = t * sin(t);
-        // Cible = [1, 0] => bleu
-        spiralBlue[i].target[0] = 1.0;
-        spiralBlue[i].target[1] = 0.0;
-
-        // Spirale rouge: (-t cos t, -t sin t)
-        spiralRed[i].x = -t * cos(t);
-        spiralRed[i].y = -t * sin(t);
-        // Cible = [0, 1] => rouge
-        spiralRed[i].target[0] = 0.0;
-        spiralRed[i].target[1] = 1.0;
-    }
-}
-
-// -------------------------------------
 // Boucle d'apprentissage principal
 // -------------------------------------
+/**
+ * @brief Entraînement/Apprentissahe du réseau de neurones
+ * 
+ * @param[out] net réseau de neurones
+ * @param[out] dataset jeu de données des spirales
+ * @param[int] nbSamples nombre de points total
+ * @return void
+ */
 void trainNetwork(NeuralNetwork *net, SamplePoint *dataset, int nbSamples) {
+    //On entraine sur le nombre de fois définie dans types.h par MAX_EPOCHS
     for(int epoch=0; epoch<MAX_EPOCHS; epoch++){
         double maxDelta = 0.0;
 
-        // Parcours de tous les échantillons
+        // Parcours de tous les points
         for(int i=0; i<nbSamples; i++){
             double input[2] = { dataset[i].x, dataset[i].y };
-            // Forward
+            // Passe avant
             forwardPass(net, input);
-            // Backprop
+            // Propagation arrière
             backpropagation(net, dataset[i].target);
             // On suit le maxDelta sur la couche de sortie
             for(int j=0; j<net->layerSizes[net->nbLayers-1]; j++){
@@ -253,8 +323,6 @@ void trainNetwork(NeuralNetwork *net, SamplePoint *dataset, int nbSamples) {
                 if(d>maxDelta) maxDelta = d;
             }
         }
-
-
 
         if(maxDelta < MIN_ERROR){
             printf("Convergence atteinte a l'epoque %d, maxDelta=%.6f\n", epoch, maxDelta);

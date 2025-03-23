@@ -1,5 +1,15 @@
-#include "main.h"
+/**
+ * @file main.c
+ * @author { Zoé Arthapignet, Mélie BORDAGE, Nicolas BOUILLON, Zack HEBERT}
+ * @brief Fichier main du projet
+ * @version 0.1
+ * @date 2025-03-22
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 
+#include "main.h"
 
 // Fonction tanh et sa dérivée
 static inline double my_tanh(double x) {
@@ -14,21 +24,29 @@ static inline double tanh_deriv(double x) {
 // -------------------------------------
 // MAIN
 // -------------------------------------
+/**
+ * @brief Fonction main du projet
+ * 
+ * @param[in] argc 
+ * @param[in] argv 
+ * @return int 
+ */
 int main(int argc, char **argv) {
     (void)argc; // on ignore les paramètres pour éviter le warning
     (void)argv;
 
-    srand((unsigned int)time(NULL));
+    // Initialisation du générateur aléatoire
+    srand((unsigned int)time(NULL)); 
 
-    // 1. Génération des spirales
+    //Génération des spirales
     SamplePoint spiralBlue[NB_POINTS_SPIRALE];
     SamplePoint spiralRed[NB_POINTS_SPIRALE];
     generateSpirals(spiralBlue, spiralRed, NB_POINTS_SPIRALE);
 
-    // 2. Création du réseau
+    //Création du réseau
     NeuralNetwork *net = createNetwork(nbLayers, layerSizes);
 
-    // 3. Initialisation de la SDL
+    // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         fprintf(stderr, "Erreur SDL_Init: %s\n", SDL_GetError());
         return 1;
@@ -52,7 +70,8 @@ int main(int argc, char **argv) {
     }
 
     initClassificationTexture(renderer);
-
+    
+    //boucle principale
     int running = 1;
     int needRedraw = 1;
     while(running) {

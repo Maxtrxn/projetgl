@@ -1,3 +1,13 @@
+/**
+ * @file utils.h
+ * @brief Fichier header des fonctions utilitaires
+ * @version 0.1
+ * @date 2025-03-23
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #ifndef UTILS_H
 #define UTILS_H
 

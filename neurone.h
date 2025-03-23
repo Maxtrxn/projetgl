@@ -1,3 +1,13 @@
+/**
+ * @file neurone.h
+ * @author your name (you@domain.com)
+ * @brief Fichier header de neurone.c
+ * @version 0.1
+ * @date 2025-03-23
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #ifndef NEURONE_H
 #define NEURONE_H
 
@@ -10,7 +20,10 @@
 #include <string.h>
 #include <math.h>
 
-
+/**
+ * @define M_PI Définition de la constante PI
+ * 
+ */
 #ifndef M_PI
     #define M_PI 3.14159265358979323846
 #endif

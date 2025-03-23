@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Reseau de neurones: Référence du fichier C:/L3/GL/projetgl/neurone.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Reseau de neurones<span id="projectnumber">&#160;version 0.1</span>
+   </div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_407598ab3bb1fe0ae9d3a3226a27ddb6.html">L3</a></li><li class="navelem"><a class="el" href="dir_8013927f912ca55d379c3674c82af0dd.html">GL</a></li><li class="navelem"><a class="el" href="dir_9b509748307b2f4b74bba4188e3b4b93.html">projetgl</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier neurone.h</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Fichier header de <a class="el" href="neurone_8c.html" title="Fichier des fonctions nécessaires pour la création, la libération, la sauvegarde, le chargement,...">neurone.c</a>.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="types_8h_source.html">types.h</a>&quot;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;time.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+</div>
+<p><a href="neurone_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ae71449b1cc6e6250b91f539153a7a0d3" id="r_ae71449b1cc6e6250b91f539153a7a0d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a>&#160;&#160;&#160;3.14159265358979323846</td></tr>
+<tr class="separator:ae71449b1cc6e6250b91f539153a7a0d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a3de1df206dd84b0e667043858c4944f0" id="r_a3de1df206dd84b0e667043858c4944f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_neural_network.html">NeuralNetwork</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3de1df206dd84b0e667043858c4944f0">createNetwork</a> (int nbLayers, int *layerSizes)</td></tr>
+<tr class="memdesc:a3de1df206dd84b0e667043858c4944f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée le réseau de neurones et initialise les poids aléatoirement.  <br /></td></tr>
+<tr class="separator:a3de1df206dd84b0e667043858c4944f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a2a88d6d1cce65345d86a4754afb52a" id="r_a5a2a88d6d1cce65345d86a4754afb52a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a2a88d6d1cce65345d86a4754afb52a">freeNetwork</a> (<a class="el" href="struct_neural_network.html">NeuralNetwork</a> *net)</td></tr>
+<tr class="memdesc:a5a2a88d6d1cce65345d86a4754afb52a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libère.  <br /></td></tr>
+<tr class="separator:a5a2a88d6d1cce65345d86a4754afb52a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e5a19e139af748be8f5bf4642c5381b" id="r_a8e5a19e139af748be8f5bf4642c5381b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e5a19e139af748be8f5bf4642c5381b">saveNetwork</a> (<a class="el" href="struct_neural_network.html">NeuralNetwork</a> *net, const char *filename)</td></tr>
+<tr class="memdesc:a8e5a19e139af748be8f5bf4642c5381b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarde du réseau de neurones dans le fichier reseau_sauvegarde.txt.  <br /></td></tr>
+<tr class="separator:a8e5a19e139af748be8f5bf4642c5381b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80079b431b69699b733f7dabb629dc08" id="r_a80079b431b69699b733f7dabb629dc08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_neural_network.html">NeuralNetwork</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80079b431b69699b733f7dabb629dc08">loadNetwork</a> (const char *filename)</td></tr>
+<tr class="memdesc:a80079b431b69699b733f7dabb629dc08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le réseau de neurones depuis le fichier reseau_sauvegarde.txt.  <br /></td></tr>
+<tr class="separator:a80079b431b69699b733f7dabb629dc08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09612cd823563034e73aed4a6714c1c0" id="r_a09612cd823563034e73aed4a6714c1c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09612cd823563034e73aed4a6714c1c0">forwardPass</a> (<a class="el" href="struct_neural_network.html">NeuralNetwork</a> *net, double *input)</td></tr>
+<tr class="memdesc:a09612cd823563034e73aed4a6714c1c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Passe avant du réseau de neurones.  <br /></td></tr>
+<tr class="separator:a09612cd823563034e73aed4a6714c1c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41c89e72137b9ff03030cadb699ee913" id="r_a41c89e72137b9ff03030cadb699ee913"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41c89e72137b9ff03030cadb699ee913">backpropagation</a> (<a class="el" href="struct_neural_network.html">NeuralNetwork</a> *net, double *target)</td></tr>
+<tr class="memdesc:a41c89e72137b9ff03030cadb699ee913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rétropropagation du réseau de neurones.  <br /></td></tr>
+<tr class="separator:a41c89e72137b9ff03030cadb699ee913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22c9869f4ee32b6e740d3b7dd5c65c9c" id="r_a22c9869f4ee32b6e740d3b7dd5c65c9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22c9869f4ee32b6e740d3b7dd5c65c9c">generateSpirals</a> (<a class="el" href="struct_sample_point.html">SamplePoint</a> *spiralBlue, <a class="el" href="struct_sample_point.html">SamplePoint</a> *spiralRed, int nbPoints)</td></tr>
+<tr class="memdesc:a22c9869f4ee32b6e740d3b7dd5c65c9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui génère les spirales bleues et rouges.  <br /></td></tr>
+<tr class="separator:a22c9869f4ee32b6e740d3b7dd5c65c9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6ab4c29a28f914d67affb98db9fc805" id="r_ac6ab4c29a28f914d67affb98db9fc805"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6ab4c29a28f914d67affb98db9fc805">trainNetwork</a> (<a class="el" href="struct_neural_network.html">NeuralNetwork</a> *net, <a class="el" href="struct_sample_point.html">SamplePoint</a> *dataset, int nbSamples)</td></tr>
+<tr class="memdesc:ac6ab4c29a28f914d67affb98db9fc805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entraînement/Apprentissahe du réseau de neurones.  <br /></td></tr>
+<tr class="separator:ac6ab4c29a28f914d67affb98db9fc805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Fichier header de <a class="el" href="neurone_8c.html" title="Fichier des fonctions nécessaires pour la création, la libération, la sauvegarde, le chargement,...">neurone.c</a>. </p>
+<dl class="section author"><dt>Auteur</dt><dd>your name (<a href="#" onclick="location.href='mai'+'lto:'+'you'+'@d'+'oma'+'in'+'.co'+'m'; return false;">you@d<span class="obfuscator">.nosp@m.</span>omai<span class="obfuscator">.nosp@m.</span>n.com</a>) </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-03-23</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
+</div><h2 class="groupheader">Documentation des macros</h2>
+<a id="ae71449b1cc6e6250b91f539153a7a0d3" name="ae71449b1cc6e6250b91f539153a7a0d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae71449b1cc6e6250b91f539153a7a0d3">&#9670;&#160;</a></span>M_PI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define M_PI&#160;&#160;&#160;3.14159265358979323846</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>@define M_PI Définition de la constante PI </p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a41c89e72137b9ff03030cadb699ee913" name="a41c89e72137b9ff03030cadb699ee913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41c89e72137b9ff03030cadb699ee913">&#9670;&#160;</a></span>backpropagation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void backpropagation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_neural_network.html">NeuralNetwork</a> *</td>          <td class="paramname"><span class="paramname"><em>net</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>target</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rétropropagation du réseau de neurones. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">net</td><td>réseau de neurones </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">target</td><td>tableau des points x et y ciblés </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a3de1df206dd84b0e667043858c4944f0" name="a3de1df206dd84b0e667043858c4944f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3de1df206dd84b0e667043858c4944f0">&#9670;&#160;</a></span>createNetwork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_neural_network.html">NeuralNetwork</a> * createNetwork </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nbLayers</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>layerSizes</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crée le réseau de neurones et initialise les poids aléatoirement. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nbLayers</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">layerSizes</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>NeuralNetwork* </dd></dl>
+
+</div>
+</div>
+<a id="a09612cd823563034e73aed4a6714c1c0" name="a09612cd823563034e73aed4a6714c1c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09612cd823563034e73aed4a6714c1c0">&#9670;&#160;</a></span>forwardPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void forwardPass </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_neural_network.html">NeuralNetwork</a> *</td>          <td class="paramname"><span class="paramname"><em>net</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>input</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Passe avant du réseau de neurones. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">net</td><td>réseau de neurones </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">input</td><td>tableau des coordonnées x et y </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a5a2a88d6d1cce65345d86a4754afb52a" name="a5a2a88d6d1cce65345d86a4754afb52a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a2a88d6d1cce65345d86a4754afb52a">&#9670;&#160;</a></span>freeNetwork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void freeNetwork </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_neural_network.html">NeuralNetwork</a> *</td>          <td class="paramname"><span class="paramname"><em>net</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Libère. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">net</td><td>réseau de neurones </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a22c9869f4ee32b6e740d3b7dd5c65c9c" name="a22c9869f4ee32b6e740d3b7dd5c65c9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22c9869f4ee32b6e740d3b7dd5c65c9c">&#9670;&#160;</a></span>generateSpirals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void generateSpirals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_sample_point.html">SamplePoint</a> *</td>          <td class="paramname"><span class="paramname"><em>spiralBlue</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_sample_point.html">SamplePoint</a> *</td>          <td class="paramname"><span class="paramname"><em>spiralRed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nbPoints</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction qui génère les spirales bleues et rouges. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">spiralBlue</td><td>Les points de la spirale bleue </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">spiralRed</td><td>Les points de la spirale rouge </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">[int]</td><td>nbPoints Le nombre de points total </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a80079b431b69699b733f7dabb629dc08" name="a80079b431b69699b733f7dabb629dc08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80079b431b69699b733f7dabb629dc08">&#9670;&#160;</a></span>loadNetwork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_neural_network.html">NeuralNetwork</a> * loadNetwork </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charge le réseau de neurones depuis le fichier reseau_sauvegarde.txt. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">filename</td><td>nom du fichier </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>NeuralNetwork* retourne le réseau de neurones </dd></dl>
+
+</div>
+</div>
+<a id="a8e5a19e139af748be8f5bf4642c5381b" name="a8e5a19e139af748be8f5bf4642c5381b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e5a19e139af748be8f5bf4642c5381b">&#9670;&#160;</a></span>saveNetwork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int saveNetwork </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_neural_network.html">NeuralNetwork</a> *</td>          <td class="paramname"><span class="paramname"><em>net</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sauvegarde du réseau de neurones dans le fichier reseau_sauvegarde.txt. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">net</td><td>réseau de neurones </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">filename</td><td>nom du fichier </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int retourne 1 si le fichier est sauvegardé sinon 0 </dd></dl>
+
+</div>
+</div>
+<a id="ac6ab4c29a28f914d67affb98db9fc805" name="ac6ab4c29a28f914d67affb98db9fc805"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6ab4c29a28f914d67affb98db9fc805">&#9670;&#160;</a></span>trainNetwork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void trainNetwork </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_neural_network.html">NeuralNetwork</a> *</td>          <td class="paramname"><span class="paramname"><em>net</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_sample_point.html">SamplePoint</a> *</td>          <td class="paramname"><span class="paramname"><em>dataset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nbSamples</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Entraînement/Apprentissahe du réseau de neurones. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">net</td><td>réseau de neurones </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dataset</td><td>jeu de données des spirales </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">[int]</td><td>nbSamples nombre de points total </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

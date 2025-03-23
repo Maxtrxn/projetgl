@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Reseau de neurones: Référence du fichier C:/L3/GL/projetgl/utils.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Reseau de neurones<span id="projectnumber">&#160;version 0.1</span>
+   </div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_407598ab3bb1fe0ae9d3a3226a27ddb6.html">L3</a></li><li class="navelem"><a class="el" href="dir_8013927f912ca55d379c3674c82af0dd.html">GL</a></li><li class="navelem"><a class="el" href="dir_9b509748307b2f4b74bba4188e3b4b93.html">projetgl</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier utils.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Fichier des fonctions utilitaires.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="utils_8h_source.html">utils.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a68c80061a4f819a5f7893a05ac6015ed" id="r_a68c80061a4f819a5f7893a05ac6015ed"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68c80061a4f819a5f7893a05ac6015ed">my_tanh</a> (double x)</td></tr>
+<tr class="memdesc:a68c80061a4f819a5f7893a05ac6015ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction tanh.  <br /></td></tr>
+<tr class="separator:a68c80061a4f819a5f7893a05ac6015ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a9e2b031dec2932b9ff770ac0315d44" id="r_a4a9e2b031dec2932b9ff770ac0315d44"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a9e2b031dec2932b9ff770ac0315d44">tanh_deriv</a> (double x)</td></tr>
+<tr class="memdesc:a4a9e2b031dec2932b9ff770ac0315d44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction dérivée de tanh.  <br /></td></tr>
+<tr class="separator:a4a9e2b031dec2932b9ff770ac0315d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af361807279e1d0cc5b93cf4c5895b32d" id="r_af361807279e1d0cc5b93cf4c5895b32d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af361807279e1d0cc5b93cf4c5895b32d">randSymetric</a> ()</td></tr>
+<tr class="memdesc:af361807279e1d0cc5b93cf4c5895b32d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Générateur aléatoire dans [-1, 1].  <br /></td></tr>
+<tr class="separator:af361807279e1d0cc5b93cf4c5895b32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Fichier des fonctions utilitaires. </p>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-03-23</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a68c80061a4f819a5f7893a05ac6015ed" name="a68c80061a4f819a5f7893a05ac6015ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68c80061a4f819a5f7893a05ac6015ed">&#9670;&#160;</a></span>my_tanh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double my_tanh </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fonction tanh. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>paramètre de la fonction </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>double </dd></dl>
+
+</div>
+</div>
+<a id="af361807279e1d0cc5b93cf4c5895b32d" name="af361807279e1d0cc5b93cf4c5895b32d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af361807279e1d0cc5b93cf4c5895b32d">&#9670;&#160;</a></span>randSymetric()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double randSymetric </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Générateur aléatoire dans [-1, 1]. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>double </dd></dl>
+
+</div>
+</div>
+<a id="a4a9e2b031dec2932b9ff770ac0315d44" name="a4a9e2b031dec2932b9ff770ac0315d44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a9e2b031dec2932b9ff770ac0315d44">&#9670;&#160;</a></span>tanh_deriv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double tanh_deriv </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fonction dérivée de tanh. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>double </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>
