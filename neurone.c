@@ -55,6 +55,83 @@ void generateSpirals(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoin
     }
 }
 
+//UNCOMMENT THIS FUNCTION TO GENERATE THE ROSES (need to comment the previous one)
+
+// void generateSpirals(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoints) {
+//     double step = 2.0 * M_PI / nbPoints;
+
+//     double scaleBlue = 10.0;  // Smaller radius for blue
+//     double scaleRed  = 10.0;  // Smaller radius for red (non-overlapping)
+//     double angleOffset = M_PI / 6;  // Rotate red spiral to avoid alignment
+
+//     for (int i = 0; i < nbPoints; i++) {
+//         double t = i * step;
+
+//         // Blue rose curve (r = cos(3t))
+//         double r_blue = cos(3 * t);
+//         spiralBlue[i].x = scaleBlue * r_blue * cos(t);
+//         spiralBlue[i].y = scaleBlue * r_blue * sin(t);
+//         spiralBlue[i].target[0] = 1.0;
+//         spiralBlue[i].target[1] = 0.0;
+
+//         // Red rose curve (r = sin(4t)) with phase shift to stagger petals
+//         double r_red = sin(3 * t);
+//         double t_shifted = t + angleOffset;
+//         spiralRed[i].x = scaleRed * r_red * cos(t_shifted);
+//         spiralRed[i].y = scaleRed * r_red * sin(t_shifted);
+//         spiralRed[i].target[0] = 0.0;
+//         spiralRed[i].target[1] = 1.0;
+//     }
+// }
+
+//UNCOMMENT THIS FUNCTION TO GENERATE THE TRIANGLES (need to comment the previous one)
+
+// void generateSpirals(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoints) {
+//     int halfPoints = nbPoints / 2;
+//     int pointsPerEdge = halfPoints / 3;
+
+//     double outerRadius = 10.0;
+//     double innerRadius = 5.0;
+
+//     // Triangle corners (60° apart, centered at origin)
+//     double angles[3] = { -M_PI / 2, -M_PI / 2 + 2.0 * M_PI / 3.0, -M_PI / 2 + 4.0 * M_PI / 3.0 };
+
+//     // Generate blue triangle (outer)
+//     for (int i = 0; i < 3; i++) {
+//         double ax = outerRadius * cos(angles[i]);
+//         double ay = outerRadius * sin(angles[i]);
+//         double bx = outerRadius * cos(angles[(i + 1) % 3]);
+//         double by = outerRadius * sin(angles[(i + 1) % 3]);
+
+//         for (int j = 0; j < pointsPerEdge; j++) {
+//             int index = i * pointsPerEdge + j;
+//             double t = (double)j / (pointsPerEdge - 1);
+//             spiralBlue[index].x = (1 - t) * ax + t * bx;
+//             spiralBlue[index].y = (1 - t) * ay + t * by;
+//             spiralBlue[index].target[0] = 1.0;
+//             spiralBlue[index].target[1] = 0.0;
+//         }
+//     }
+
+//     // Generate red triangle (inner)
+//     for (int i = 0; i < 3; i++) {
+//         double ax = innerRadius * cos(angles[i]);
+//         double ay = innerRadius * sin(angles[i]);
+//         double bx = innerRadius * cos(angles[(i + 1) % 3]);
+//         double by = innerRadius * sin(angles[(i + 1) % 3]);
+
+//         for (int j = 0; j < pointsPerEdge; j++) {
+//             int index = i * pointsPerEdge + j;
+//             double t = (double)j / (pointsPerEdge - 1);
+//             spiralRed[index].x = (1 - t) * ax + t * bx;
+//             spiralRed[index].y = (1 - t) * ay + t * by;
+//             spiralRed[index].target[0] = 0.0;
+//             spiralRed[index].target[1] = 1.0;
+//         }
+//     }
+// }
+
+
 // -------------------------------------
 // Création / libération du réseau
 // -------------------------------------

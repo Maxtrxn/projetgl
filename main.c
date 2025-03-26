@@ -20,7 +20,6 @@ static inline double tanh_deriv(double x) {
     return 1.0 - x*x;
 }
 
-
 // -------------------------------------
 // MAIN
 // -------------------------------------
@@ -69,7 +68,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    initClassificationTexture(renderer);
+    //initClassificationTexture(renderer);
     
     //boucle principale
     int running = 1;
