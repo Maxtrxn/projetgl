@@ -40,9 +40,9 @@ int main(int argc, char **argv) {
     //Génération des spirales
     SamplePoint spiralBlue[NB_POINTS_SPIRALE];
     SamplePoint spiralRed[NB_POINTS_SPIRALE];
-    //generateSpirals(spiralBlue, spiralRed, NB_POINTS_SPIRALE);
+    generateSpirals(spiralBlue, spiralRed, NB_POINTS_SPIRALE);
     //generateTriangle(spiralBlue, spiralRed, NB_POINTS_SPIRALE);
-    generateRoses(spiralBlue, spiralRed, NB_POINTS_SPIRALE);
+    //generateRoses(spiralBlue, spiralRed, NB_POINTS_SPIRALE);
     
 
     //Création du réseau
