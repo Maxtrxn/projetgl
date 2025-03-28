@@ -1,7 +1,7 @@
 /**
  * @file neurone.c
  * @brief Fichier des fonctions nécessaires pour la création, la libération, la sauvegarde, le chargement, la propagation et la rétropropagation du réseau de neurones
- * @version 0.1
+ * @version 1.1
  * @date 2025-03-23
  * 
  * @copyright Copyright (c) 2025
@@ -32,11 +32,11 @@ static double randSymetric() {
  * 
  * @param[out] spiralBlue Les points de la spirale bleue
  * @param[out] spiralRed Les points de la spirale rouge
- * @param[int] nbPoints Le nombre de points total
+ * @param[in] nbPoints Le nombre de points total
  * @return void
  */
 void generateSpirals(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoints) {
-    double step = 4.0 * M_PI / (double)(nbPoints); //4.0 = WINDOW_WIDTH/NB_POINTS = DISTANCE ENTRE 2 SPIRES
+    double step = 4.0 * M_PI / (double)(nbPoints); //2(rotation) + (2.0 = WINDOW_WIDTH/NB_POINTS = ORDRE de GRANDEUR) = DISTANCE ENTRE 2 SPIRES 
     for(int i=0; i<nbPoints; i++){
         double t =  i * step  ;
         // Spirale bleue: (t cos t, t sin t)
@@ -55,81 +55,99 @@ void generateSpirals(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoin
     }
 }
 
-//UNCOMMENT THIS FUNCTION TO GENERATE THE ROSES (need to comment the previous one)
 
-// void generateSpirals(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoints) {
-//     double step = 2.0 * M_PI / nbPoints;
+/**
+ * @brief Fonction qui génère les roses bleues et rouges
+ * 
+ * @param[out] spiralBlue Les points de la spirale bleue
+ * @param[out] spiralRed Les points de la spirale rouge
+ * @param[in] nbPoints nbPoints Le nombre de points total
+ * @return void
+ */
+void generateRoses(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoints) {
+    double step = 2.0 * M_PI / nbPoints;
 
-//     double scaleBlue = 10.0;  // Smaller radius for blue
-//     double scaleRed  = 10.0;  // Smaller radius for red (non-overlapping)
-//     double angleOffset = M_PI / 6;  // Rotate red spiral to avoid alignment
+    double scaleBlue = 10.0;  // Radius pour les spirale bleue 
+    double scaleRed  = 10.0;  // Radius pour les spirale rouge
+    double angleOffset = M_PI / 6;  // Rotation des spirales rouges pour les décaler
 
-//     for (int i = 0; i < nbPoints; i++) {
-//         double t = i * step;
+    for (int i = 0; i < nbPoints; i++) {
+        double t = i * step;
 
-//         // Blue rose curve (r = cos(3t))
-//         double r_blue = cos(3 * t);
-//         spiralBlue[i].x = scaleBlue * r_blue * cos(t);
-//         spiralBlue[i].y = scaleBlue * r_blue * sin(t);
-//         spiralBlue[i].target[0] = 1.0;
-//         spiralBlue[i].target[1] = 0.0;
+        // Spire des rose bleue (r = cos(3t))
+        double r_blue = cos(3 * t);
+        spiralBlue[i].x = scaleBlue * r_blue * cos(t);
+        spiralBlue[i].y = scaleBlue * r_blue * sin(t);
+        spiralBlue[i].target[0] = 1.0;
+        spiralBlue[i].target[1] = 0.0;
 
-//         // Red rose curve (r = sin(4t)) with phase shift to stagger petals
-//         double r_red = sin(3 * t);
-//         double t_shifted = t + angleOffset;
-//         spiralRed[i].x = scaleRed * r_red * cos(t_shifted);
-//         spiralRed[i].y = scaleRed * r_red * sin(t_shifted);
-//         spiralRed[i].target[0] = 0.0;
-//         spiralRed[i].target[1] = 1.0;
-//     }
-// }
+        // Spire des rose rouge (r = sin(4t)) 
+        double r_red = sin(3 * t);
+        //decalage 
+        double t_shifted = t + angleOffset;
+        spiralRed[i].x = scaleRed * r_red * cos(t_shifted);
+        spiralRed[i].y = scaleRed * r_red * sin(t_shifted);
+        spiralRed[i].target[0] = 0.0;
+        spiralRed[i].target[1] = 1.0;
+    }
+}
 
-//UNCOMMENT THIS FUNCTION TO GENERATE THE TRIANGLES (need to comment the previous one)
+/**
+ * @brief Fonction qui génère les triangles bleus et rouges
+ * 
+ * @param[out] spiralBlue Les points du triangle bleue
+ * @param[out] spiralRed Les points du triangle rouge
+ * @param [in] nbPoints nbPoints Le nombre de points total
+ * @return void
+ */
+void generateTriangle(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoints) {
+    //Divise le nombre de points par 2 pour avoir 2 triangles
+    int halfPoints = nbPoints / 2;
+    // On divise le nombre de points par 3 pour avoir les 3 côtés du triangle  
+    int pointsPerEdge = halfPoints / 3;
+    //Taille des côtes du triangle
+    double outerRadius = 10.0;
+    double innerRadius = 5.0;
 
-// void generateSpirals(SamplePoint *spiralBlue, SamplePoint *spiralRed, int nbPoints) {
-//     int halfPoints = nbPoints / 2;
-//     int pointsPerEdge = halfPoints / 3;
+    // Angles des sommets du triangle
+    double angles[3] = { -M_PI / 2, -M_PI / 2 + 2.0 * M_PI / 3.0, -M_PI / 2 + 4.0 * M_PI / 3.0 };
 
-//     double outerRadius = 10.0;
-//     double innerRadius = 5.0;
+    // Generation du triangle bleu (extérieur)
+    for (int i = 0; i < 3; i++) {
+        //Calcul les coordonnées des sommets et des côtés du triangle bleu
+        double ax = outerRadius * cos(angles[i]);
+        double ay = outerRadius * sin(angles[i]);
+        double bx = outerRadius * cos(angles[(i + 1) % 3]);
+        double by = outerRadius * sin(angles[(i + 1) % 3]);
+        //Calcul les coordonnées des points sur du triangle bleu
+        for (int j = 0; j < pointsPerEdge; j++) {
+            int index = i * pointsPerEdge + j;
+            double t = (double)j / (pointsPerEdge - 1);
+            spiralBlue[index].x = (1 - t) * ax + t * bx;
+            spiralBlue[index].y = (1 - t) * ay + t * by;
+            spiralBlue[index].target[0] = 1.0;
+            spiralBlue[index].target[1] = 0.0;
+        }
+    }
 
-//     // Triangle corners (60° apart, centered at origin)
-//     double angles[3] = { -M_PI / 2, -M_PI / 2 + 2.0 * M_PI / 3.0, -M_PI / 2 + 4.0 * M_PI / 3.0 };
-
-//     // Generate blue triangle (outer)
-//     for (int i = 0; i < 3; i++) {
-//         double ax = outerRadius * cos(angles[i]);
-//         double ay = outerRadius * sin(angles[i]);
-//         double bx = outerRadius * cos(angles[(i + 1) % 3]);
-//         double by = outerRadius * sin(angles[(i + 1) % 3]);
-
-//         for (int j = 0; j < pointsPerEdge; j++) {
-//             int index = i * pointsPerEdge + j;
-//             double t = (double)j / (pointsPerEdge - 1);
-//             spiralBlue[index].x = (1 - t) * ax + t * bx;
-//             spiralBlue[index].y = (1 - t) * ay + t * by;
-//             spiralBlue[index].target[0] = 1.0;
-//             spiralBlue[index].target[1] = 0.0;
-//         }
-//     }
-
-//     // Generate red triangle (inner)
-//     for (int i = 0; i < 3; i++) {
-//         double ax = innerRadius * cos(angles[i]);
-//         double ay = innerRadius * sin(angles[i]);
-//         double bx = innerRadius * cos(angles[(i + 1) % 3]);
-//         double by = innerRadius * sin(angles[(i + 1) % 3]);
-
-//         for (int j = 0; j < pointsPerEdge; j++) {
-//             int index = i * pointsPerEdge + j;
-//             double t = (double)j / (pointsPerEdge - 1);
-//             spiralRed[index].x = (1 - t) * ax + t * bx;
-//             spiralRed[index].y = (1 - t) * ay + t * by;
-//             spiralRed[index].target[0] = 0.0;
-//             spiralRed[index].target[1] = 1.0;
-//         }
-//     }
-// }
+    // Generattion du triangle rouge (intérieur)
+    for (int i = 0; i < 3; i++) {
+        //Calcul les coordonées des sommets et des côtés du triangle rouge
+        double ax = innerRadius * cos(angles[i]);
+        double ay = innerRadius * sin(angles[i]);
+        double bx = innerRadius * cos(angles[(i + 1) % 3]);
+        double by = innerRadius * sin(angles[(i + 1) % 3]);
+        //Calcul les coordonnées des points du triangle rouge
+        for (int j = 0; j < pointsPerEdge; j++) {
+            int index = i * pointsPerEdge + j;
+            double t = (double)j / (pointsPerEdge - 1);
+            spiralRed[index].x = (1 - t) * ax + t * bx;
+            spiralRed[index].y = (1 - t) * ay + t * by;
+            spiralRed[index].target[0] = 0.0;
+            spiralRed[index].target[1] = 1.0;
+        }
+    }
+}
 
 
 // -------------------------------------

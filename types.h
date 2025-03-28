@@ -5,8 +5,6 @@
  * @version 0.1
  * @date 2025-03-23
  * 
- * @copyright Copyright (c) 2025
- * 
  */
 #ifndef TYPES_H
 #define TYPES_H

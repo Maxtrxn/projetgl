@@ -73,11 +73,11 @@ void drawClassificationMap(SDL_Renderer *renderer, NeuralNetwork *net) {
             double x = ((double)px - WINDOW_WIDTH/2.0) / 40.0;
             double y = ((double)py - WINDOW_HEIGHT/2.0) / 40.0;
             double input[2] = {x, y};
-
+            //Passe avant pour générer les poids et initialiser la classification
             forwardPass(net, input);
             double pBleu  = (net->outputs[net->nbLayers-1][0] + 1.0) / 2.0;
             double pRouge = (net->outputs[net->nbLayers-1][1] + 1.0) / 2.0;
-
+            //Gestion des couleurs
             Uint8 r, g, b;
             getColorFromOutput(pBleu, pRouge, &r, &g, &b);
 
