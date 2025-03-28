@@ -20,6 +20,62 @@ static inline double tanh_deriv(double x) {
     return 1.0 - x*x;
 }
 
+
+
+/**
+ * @brief Sauvegarde le contenu de classificationTexture en BMP en générant automatiquement le nom de fichier au format hh:mm:ss.bmp.
+ */
+void saveClassificationScreenshot() {
+    // Génération du nom de fichier basé sur l'heure actuelle
+    char filename[64];
+    time_t now = time(NULL);
+    struct tm *tm_info = localtime(&now);
+    strftime(filename, sizeof(filename), "%H:%M:%S.bmp", tm_info);
+
+    if (!classificationTexture) {
+        printf("Texture de classification non disponible.\n");
+        return;
+    }
+
+    void *pixels;
+    int pitch;
+
+    // Verrouille la texture pour accéder aux pixels
+    if (SDL_LockTexture(classificationTexture, NULL, &pixels, &pitch) != 0) {
+        printf("Erreur lors du verrouillage de la texture: %s\n", SDL_GetError());
+        return;
+    }
+
+    // Crée une surface à partir des pixels de la texture
+    SDL_Surface *surface = SDL_CreateRGBSurfaceWithFormatFrom(
+        pixels, 
+        WINDOW_WIDTH, 
+        WINDOW_HEIGHT, 
+        24,         // Profondeur de 24 bits pour un format RGB
+        pitch, 
+        SDL_PIXELFORMAT_RGB888
+    );
+
+    if (!surface) {
+        printf("Erreur lors de la création de la surface: %s\n", SDL_GetError());
+        SDL_UnlockTexture(classificationTexture);
+        return;
+    }
+
+    // Sauvegarde la surface au format BMP
+    if (SDL_SaveBMP(surface, filename) != 0) {
+        printf("Erreur lors de la sauvegarde du screenshot: %s\n", SDL_GetError());
+    } else {
+        printf("Screenshot sauvegardé sous %s\n", filename);
+    }
+
+    SDL_FreeSurface(surface);
+    SDL_UnlockTexture(classificationTexture);
+}
+
+
+
+
 // -------------------------------------
 // MAIN
 // -------------------------------------
@@ -151,6 +207,10 @@ int main(int argc, char **argv) {
                         net = tmp;
                     }
                     needRedraw = 1;
+                }
+                else if(e.key.keysym.sym == SDLK_p){
+                    // Appel de la fonction pour sauvegarder la texture de classification
+                    saveClassificationScreenshot();
                 }
             }
         }

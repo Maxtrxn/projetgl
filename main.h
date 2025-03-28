@@ -25,7 +25,7 @@
  * @define LAYER_SIZES Taille des couches du réseau de neurones
  * 
  */
-static int layerSizes[] = {2, 48, 8, 24, 8, 32, 2};
+static int layerSizes[] = {2,64,8,64,2};
 /**
  * @define NB_LAYERS Nombre de couches du réseau de neurones
  * 
